@@ -44,17 +44,10 @@ termux_step_configure() {
 		"arm")
 			_ARCH="armeabi-v7a"
 			_EXTRA_CONFIGURE_FLAGS="--enable-neon"
-			# use '-Wno-error=incompatible-pointer-types' with 32-bit ARM target to work around
-			# error: incompatible function pointer types initializing
-			# 'PFN_vkDebugUtilsMessengerCallbackEXT'... with an expression of type 'VkBool32`...
-			# following the example of the Arch Linux AUR lib32-ffmpeg package:
-			# https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=lib32-ffmpeg&id=41476d610980376bcbe054ee183f46705be27747#n171
 			CFLAGS+=" -Wno-error=incompatible-pointer-types"
 		;;
 		"i686")
 			_ARCH="x86"
-			# Specify --disable-asm to prevent text relocations on i686,
-			# see https://trac.ffmpeg.org/ticket/4928
 			_EXTRA_CONFIGURE_FLAGS="--disable-asm"
 		;;
 		"x86_64")
@@ -74,65 +67,84 @@ termux_step_configure() {
 		--pkg-config="$PKG_CONFIG" \
 		--strip="$STRIP" \
 		--cross-prefix="${TERMUX_HOST_PLATFORM}-" \
+		--enable-cross-compile \
+		--enable-shared \
+		--disable-static \
+		--disable-doc \
+		--disable-ffplay \
+		--disable-ffprobe \
+		--disable-postproc \
+		--disable-avdevice \
+		--disable-swresample \
 		--disable-indevs \
 		--disable-outdevs \
 		--enable-indev=lavfi \
-		--disable-static \
-		--disable-symver \
-		--enable-cross-compile \
+		--disable-encoders \
+		--enable-encoder=libmp3lame,aac,libopus,libvorbis \
+		--disable-decoders \
+		--enable-decoder=mp3,mp3float,aac,aac_latm,h264,hevc,opus,vorbis,pcm_s16le,pcm_s24le \
+		--disable-muxers \
+		--enable-muxer=mp4,mpegts,matroska,webm,mp3,ogg,wav \
+		--disable-demuxers \
+		--enable-demuxer=mp3,aac,h264,hevc,mov,matroska,webm,ogg,wav \
+		--disable-parsers \
+		--enable-parser=h264,hevc,aac,mpegaudio,opus,vorbis \
+		--disable-protocols \
+		--enable-protocol=file,http,tcp,pipe \
+		--disable-filters \
+		--enable-filter=aresample,atrim,concat,volume,pan,amerge \
+		--disable-bsfs \
 		--enable-gpl \
 		--enable-version3 \
-		--enable-jni \
-		--enable-lcms2 \
-		--enable-libaom \
-		--enable-libass \
-		--enable-libbluray \
-		--enable-libbs2b \
-		--enable-libdav1d \
-		--enable-libfontconfig \
-		--enable-libfreetype \
-		--enable-libfribidi \
-		--enable-libglslang \
-		--enable-libgme \
-		--enable-libharfbuzz \
-		--enable-libmysofa \
 		--enable-libmp3lame \
-		--enable-libopencore-amrnb \
-		--enable-libopencore-amrwb \
-		--enable-libopenmpt \
 		--enable-libopus \
-		--enable-libplacebo \
-		--enable-librav1e \
-		--enable-librubberband \
-		--enable-libsoxr \
-		--enable-libsrt \
-		--enable-libssh \
-		--enable-libsvtav1 \
-		--enable-libtheora \
-		--enable-libv4l2 \
-		--enable-libvidstab \
-		--enable-libvmaf \
-		--enable-libvo-amrwbenc \
 		--enable-libvorbis \
-		--enable-libvpx \
-		--enable-libwebp \
-		--enable-libx264 \
-		--enable-libx265 \
-		--enable-libxml2 \
-		--enable-libxvid \
-		--enable-libzimg \
-		--enable-libzmq \
-		--enable-mediacodec \
-		--enable-opencl \
-		--enable-openssl \
-		--disable-shared \
-		--prefix="$TERMUX_PREFIX" \
+		--disable-libx264 \
+		--disable-libx265 \
+		--disable-libvpx \
+		--disable-libaom \
+		--disable-libdav1d \
+		--disable-librav1e \
+		--disable-libsvtav1 \
+		--disable-libass \
+		--disable-libfreetype \
+		--disable-libfontconfig \
+		--disable-libfribidi \
+		--disable-libharfbuzz \
+		--disable-libbluray \
+		--disable-libbs2b \
+		--disable-libgme \
+		--disable-libmysofa \
+		--disable-libopencore-amrnb \
+		--disable-libopencore-amrwb \
+		--disable-libopenmpt \
+		--disable-libsoxr \
+		--disable-libsrt \
+		--disable-libssh \
+		--disable-libtheora \
+		--disable-libv4l2 \
+		--disable-libvidstab \
+		--disable-libvmaf \
+		--disable-libvo-amrwbenc \
+		--disable-libwebp \
+		--disable-libxml2 \
+		--disable-libxvid \
+		--disable-libzimg \
+		--disable-libzmq \
+		--disable-lcms2 \
+		--disable-libglslang \
+		--disable-libplacebo \
+		--disable-rubberband \
+		--disable-openssl \
+		--disable-opencl \
+		--disable-vulkan \
+		--disable-mediacodec \
+		--disable-jni \
+		--disable-symver \
 		--target-os=android \
 		--extra-libs="-landroid-glob" \
-		--enable-vulkan \
-		$_EXTRA_CONFIGURE_FLAGS \
-		--disable-libfdk-aac
-	# GPLed FFmpeg binaries linked against fdk-aac are not redistributable.
+		--prefix="$TERMUX_PREFIX" \
+		$_EXTRA_CONFIGURE_FLAGS
 }
 
 termux_step_post_massage() {
