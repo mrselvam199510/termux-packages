@@ -73,7 +73,6 @@ termux_step_configure() {
 		--disable-doc \
 		--disable-ffplay \
 		--disable-ffprobe \
-		--disable-postproc \
 		--disable-avdevice \
 		--disable-swresample \
 		--disable-indevs \
