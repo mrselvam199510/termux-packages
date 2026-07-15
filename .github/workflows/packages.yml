@@ -293,7 +293,12 @@ jobs:
         NEW="static-${{ matrix.target_arch }}-${{ github.sha }}.tar.gz"
         mv "$FILE" "output/$NEW"
         echo "RENAMED_FILE=output/$NEW" >> $GITHUB_ENV
-
+        
+    - name: ⬆️ Upload static library tar.gz
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ env.PACKAGE_NAME_ }}-${{ matrix.target_arch }}-${{ github.sha }}
+        path: ${{ env.RENAMED_FILE }}
     - name: Generate build artifacts
       if: always()
       run: |
