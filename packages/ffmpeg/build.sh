@@ -7,7 +7,6 @@ TERMUX_PKG_VERSION="8.1.2"
 TERMUX_PKG_SRCURL="https://www.ffmpeg.org/releases/ffmpeg-${TERMUX_PKG_VERSION}.tar.xz"
 TERMUX_PKG_SHA256=464beb5e7bf0c311e68b45ae2f04e9cc2af88851abb4082231742a74d97b524c
 TERMUX_PKG_DEPENDS="libandroid-glob, libandroid-stub, libbz2, libiconv, liblzma, libmp3lame, libopus, libvorbis, zlib"
-TERMUX_PKG_BUILD_DEPENDS=""
 TERMUX_PKG_CONFLICTS="libav"
 TERMUX_PKG_BREAKS="ffmpeg-dev"
 TERMUX_PKG_REPLACES="ffmpeg-dev"
