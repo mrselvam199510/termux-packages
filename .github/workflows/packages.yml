@@ -287,6 +287,13 @@ jobs:
           ./scripts/run-docker.sh -d ./build-package.sh -I -C -L -a "${{ matrix.target_arch }}" "${packages[@]}"
         fi
 
+    - name: 📦 Rename static tar.gz
+      run: |
+        FILE=$(ls output/*.tar.gz | head -n 1)
+        NEW="static-${{ matrix.target_arch }}-${{ github.sha }}.tar.gz"
+        mv "$FILE" "output/$NEW"
+        echo "RENAMED_FILE=output/$NEW" >> $GITHUB_ENV
+
     - name: Generate build artifacts
       if: always()
       run: |
