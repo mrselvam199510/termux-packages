@@ -132,7 +132,6 @@ termux_step_configure() {
 		--disable-lcms2 \
 		--disable-libglslang \
 		--disable-libplacebo \
-		--disable-rubberband \
 		--disable-openssl \
 		--disable-opencl \
 		--disable-vulkan \
