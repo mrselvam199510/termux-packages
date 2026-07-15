@@ -5,7 +5,7 @@ TERMUX_PKG_MAINTAINER="@termux"
 # Please align version with `ffplay` package.
 TERMUX_PKG_VERSION="8.1.2"
 TERMUX_PKG_SRCURL="https://www.ffmpeg.org/releases/ffmpeg-${TERMUX_PKG_VERSION}.tar.xz"
-TERMUX_PKG_SHA256=$(curl -sL https://codeberg.org/dnkl/foot/archive/1.27.1.tar.gz | sha256sum | cut -d' ' -f1)
+TERMUX_PKG_SHA256=464beb5e7bf0c311e68b45ae2f04e9cc2af88851abb4082231742a74d97b524c
 TERMUX_PKG_DEPENDS="libandroid-glob, libandroid-stub, libbz2, libiconv, liblzma, libmp3lame, libopus, libvorbis, zlib"
 TERMUX_PKG_CONFLICTS="libav"
 TERMUX_PKG_BREAKS="ffmpeg-dev"
