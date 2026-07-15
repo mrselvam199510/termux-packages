@@ -67,8 +67,7 @@ termux_step_configure() {
 		--strip="$STRIP" \
 		--cross-prefix="${TERMUX_HOST_PLATFORM}-" \
 		--enable-cross-compile \
-		--enable-shared \
-		--disable-static \
+		--enable-static \
 		--disable-doc \
 		--disable-ffplay \
 		--disable-ffprobe \
